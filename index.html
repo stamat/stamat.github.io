@@ -1,15 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Nikola Stamatovic Stamat - Senior Software Engineer</title>
-
-        <script
-  src="https://code.jquery.com/jquery-1.12.4.min.js"
-  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-  crossorigin="anonymous"></script>
 
         <style type="text/css" media="screen">
             * {
@@ -51,7 +46,6 @@
 
             a {
                 color: white;
-                text-decoration: none;
             }
 
             a:hover {
@@ -104,34 +98,6 @@
                 text-align: center;
             }
 
-            .srb {
-                display: none;
-            }
-
-            .srbc {
-                display: none;
-            }
-
-            .eng {
-                display: block;
-            }
-
-            .lang {
-                text-align: right;
-            }
-
-            .lang a {
-                color: grey;
-            }
-
-            .lang a:hover {
-                color: white;
-            }
-
-            .lang .active {
-                color: white;
-            }
-
             @media screen and (max-width: 959px) {
                 .desktop {
                     display: none;
@@ -151,52 +117,9 @@
                 }
             }
         </style>
-        <script>
-            $(document).ready(function(){
-                $('.more, .less').on('click', function(e){
-                    e.preventDefault();
-                    var $this = $(this);
-
-                    var id = $this.attr('href');
-                    var cls = 'less';
-
-                    if ($this.hasClass('more')) {
-                        $(id).slideDown();
-                    } else {
-                        $(id).slideUp();
-                        cls = 'more';
-                    }
-
-                    $this.hide();
-                    $('.'+cls+'[href="'+id+'"]').show();
-                });
-
-                $('.lang a').on('click', function(e){
-                    e.preventDefault();
-                    var $this = $(this);
-                    var $parent = $this.parent();
-
-                    var id = $this.attr('href').replace('#', '.');
-                    var $last_active = $parent.find('.active');
-                    $last_active.removeClass('active');
-
-                    $this.addClass('active');
-                    var langs = $parent.find('a').not($this);
-                    for (var i = 0; i < langs.length; i++) {
-                        var $lang = $(langs[i]);
-                        var lid = $lang.attr('href').replace('#', '.');
-                        $(lid).hide();
-                    }
-                    $(id).show();
-                });
-            });
-        </script>
     </head>
     <body>
         <br />
-        <div class="lang padded-text">
-            <a href="#eng" class="active">eng</a> | <a href="#srb">srb</a><!-- | <a href="#srbc">срб</a> -->
-        </div>
         <pre class="desktop">
 
           _____ _______       __  __       _______
@@ -207,16 +130,6 @@
         |_____/   |_/_/    \_\_|  |_/_/    \_\_|
 
         </pre>
-<!--        <pre class="desktop srbc">
-
-          _____ _______       __  __       _______
-         / ____|__   __|/\   |  \/  |   /\|__   __|
-        | /       | |  /  \  | \  / |  /  \  | |
-        | |       | | / /\ \ | |\/| | / /\ \ | |
-        | \____   | |/ ____ \| |  | |/ ____ \| |
-         \_____|  |_/_/    \_\_|  |_/_/    \_\_|
-
-     </pre> -->
         <pre class="mobile">
 
     ___ _____ _   __  __   _ _____
@@ -225,14 +138,6 @@
    |___/ |_/_/ \_\_|  |_/_/ \_\_|
 
         </pre>
-<!--        <pre class="mobile srbc">
-
-    ___ _____ _   __  __   _ _____
-   / __|_   _/_\ |  \/  | /_\_   _|
-   | |_  | |/ _ \| |\/| |/ _ \| |
-   \___| |_/_/ \_\_|  |_/_/ \_\_|
-
-</pre> -->
         <pre class="padded-text eng">
 
 
@@ -242,35 +147,15 @@ I'm Stamat!
 
 
         </pre>
-        <pre class="padded-text srb">
-
-
-Zdravo,
-ja sam Stamat!
-
-
-
-        </pre>
         <div class="padded-text eng">
             <p>My full name is <strong>Nikola Stamatovic</strong>.</p>
             <p>I am a <strong>Senior Software Engineer</strong> and a <strong>Psychology Enthusiast</strong>, for most.</p>
-        </div>
-        <div class="padded-text srb">
-            <p>Moje ime je <strong>Nikola Stamatovic</strong>.</p>
-            <p>Ja sam <strong>Senior Softverski Inženjer</strong> i <strong>Entuzijasta Psihologije</strong>, za mnoge.</p>
         </div>
 <pre class="padded-text eng">
 
 
 
 But unlike the most of the people I don't identify with labels - therefore I am free.
-
-</pre>
-<pre class="padded-text srb">
-
-
-
-Za razliku od mnogih ne identifikujem se s oznakama - stoga sam slobodan.
 
 </pre>
         <div id="about" class="padded-text expandable">
@@ -293,37 +178,13 @@ Za razliku od mnogih ne identifikujem se s oznakama - stoga sam slobodan.
                 <p class="bullet">I often dream of a more ballanced world</p>
                 <br />
             </div>
-            <div class="srb">
-                <br />
-                <p>..................................</p>
-                <br />
-                <br />
-                <p>Oprosti mi ovaj oksimoron, jer reči su ništa drugo do oznake i to je način na koji komuniciramo. Ali nadam se da si razumeo ovu metaforu i moć koju ona krije.</p>
-                <br />
-                <br />
-                <p>Za mene svrha života je kreacija.</p>
-                <p>Radim mnoge stvari u životu samo zato što mogu:</p>
-                <br />
-                <p class="bullet">Bavim se kompjuterskim programiranjem od 2001, profesionalno od 2007.</p>
-                <p class="bullet">Zainteresovan sam za funkcionisanje ljudskog uma - U slobodno vreme izučavam psihologiju, filozofiju, teologiju i politiku</p>
-                <p class="bullet">Volim umetnost kao izraz ljudske emocije - stoga je praktikujem u formama pisanja, slikanja, muzike i filma</p>
-                <p class="bullet">Volim nauku - ona je prvenstveno u načinu kojim mislim, a zatim i u svakom drugom aspektu mog života</p>
-                <p class="bullet">Volim prirodu - Pešačenje, kampovanje, igram airsoft i vodim internacionalni airsoft tim zvan <a href="https://www.facebook.com/astlambda/">Lambda</a></p>
-                <p class="bullet">Često maštam o bolje izbalansiranom svetu</p>
-                <br />
-            </div>
         </div>
 
         <div class="padded-text">
-            <a href="#about" class="more">
+            <a href="#about" class="more" aria-label="More">
                 <pre class="eng">
 +-----------------+
 |      More       |
-+-----------------+
-                </pre>
-                <pre class="srb">
-+-----------------+
-|      Više       |
 +-----------------+
                 </pre>
             </a>
@@ -331,11 +192,6 @@ Za razliku od mnogih ne identifikujem se s oznakama - stoga sam slobodan.
                 <pre class="eng">
 +-----------------+
 |      Less       |
-+-----------------+
-                </pre>
-                <pre class="srb">
-+-----------------+
-|      Manje      |
 +-----------------+
                 </pre>
             </a>
@@ -357,5 +213,27 @@ Za razliku od mnogih ne identifikujem se s oznakama - stoga sam slobodan.
             <p>+</p>
         </div>
         <br />
+        <script>
+            const expandBtns = document.querySelectorAll('.more, .less');
+            for (let i = 0; i < expandBtns.length; i++) {
+                expandBtns[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = this.getAttribute('href');
+                    let cls = 'less';
+
+                    if (this.classList.contains('more')) {
+                        document.querySelector(id).style.display = 'block';
+                    } else {
+                        document.querySelector(id).style.display = 'none';
+                        cls = 'more';
+                    }
+
+                    console.log(cls);
+
+                    this.style.display = 'none';
+                    document.querySelector('.'+cls+'[href="'+id+'"]').style.display = 'block';
+                });
+            }
+        </script>
     </body>
 </html>
