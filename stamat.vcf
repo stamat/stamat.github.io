@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:4.0
+KIND:individual
+FN:Nikola Stamatovic
+NICKNAME:Stamat
+TITLE:Software Engineer, BS
+GENDER:M
+EMAIL:nikola@stamat.info
+URL:http://stamat.info
+X-SOCIALPROFILE;type=linkedin:stamat
+END:VCARD
