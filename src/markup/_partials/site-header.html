@@ -1,19 +1,18 @@
-<header>
-  <br />
-  <pre class="desktop">
-          _____ _______       __  __       _______
-         / ____|__   __|/\   |  \/  |   /\|__   __|
-        | (___    | |  /  \  | \  / |  /  \  | |
-         \___ \   | | / /\ \ | |\/| | / /\ \ | |
-         ____) |  | |/ ____ \| |  | |/ ____ \| |
-        |_____/   |_/_/    \_\_|  |_/_/    \_\_|
-
-  </pre>
-  <pre class="mobile">
-    ___ _____ _   __  __   _ _____
-   / __|_   _/_\ |  \/  | /_\_   _|
-   \__ \ | |/ _ \| |\/| |/ _ \| |
-   |___/ |_/_/ \_\_|  |_/_/ \_\_|
-
-  </pre>
+<header style="margin-bottom: 24px;">
+  <div style="display: flex; align-items: center; border-bottom: gray 1px dashed; padding-bottom: 8px; margin-bottom: 8px;">
+    <a href="{{ relativePathPrefix }}">//stamat.info</a>
+    <date-time live style="margin-left: auto; color: gray"></date-time>
+  </div>
+  <nav class="padded-text menu" style="display: flex; justify-content: right;">
+    <ul>
+      {% for link in nav %}
+        <li>
+          <a href="{% if 'http' in link.url %}{% else %}{{ relativePathPrefix }}{% endif %}{{ link.url }}" class="{% if link.url == page.url %}text-underline{% else %}text-none{% endif %} text-bold d-inline-block ml-lg-16 font-heading">{{ link.title }}</a>
+        </li>
+        {% if not loop.last %}
+          <li class="menu-separator" aria-hidden="true"> | </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
 </header>

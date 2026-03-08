@@ -8,25 +8,19 @@
   <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/blog/feed.rss">
   <link rel="stylesheet" href="{{ relativePathPrefix }}dist/styles/style.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 </head>
 <body>
-  <header>
-    <a class="padded-text" href="https://stamat.info">https://stamat.info</a>
-    <pre class="padded-text eng">
+  
+  {% include "site-header.html" %}
 
-
-             _  _    ___  _  _
-            | || |  / _ \| || |
-            | || |_| | | | || |_
-            |__   _| | | |__   _|
-               | | | |_| |  | |
-               |_|  \___/   |_|
-
-
-    </pre>
-  </header> 
   <main>
+    <div class="flex" style="gap: 8px;">
+      <a href="{{ relativePathPrefix }}blog/">Blog</a> / <h1>{{ page.title }}</h1>
+    </div>
+
+    <div class="flex" style="gap: 8px; align-items: baseline; margin-bottom: 10px;">
+      <time class="small gray block" datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date }}</time>
+    </div>
     {% block content %} {% endblock %}
   </main>
 
@@ -39,7 +33,6 @@
     + 'script>')</script>
   {% endif %}
   
-  <script>hljs.highlightAll();</script>
   <script async type="text/javascript" src="{{ relativePathPrefix }}dist/js/scripts.min.js"></script>
 </body>
 </html>

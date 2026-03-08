@@ -29,7 +29,8 @@
         "url": "https://stamat.info"
       },
       "data": [
-        "_data/social.yaml"
+        "_data/social.yaml",
+        "_data/nav.yaml"
       ],
       "includePaths": [
         "_layouts",

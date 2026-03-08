@@ -1,5 +1,5 @@
 ---
-layout: blog
+layout: blog-post
 title: Hello World!
 date: 2025-09-14
 description: Hey folks, this is my first blog post.

@@ -1,29 +1,33 @@
 ---
-layout: blog
+layout: default
 description: Just some thoughts and updates.
 paginate: 10
 collection: true
 sort: date
 ---
-<div class="text-center">
-  <h1>Blog</h1>
-</div>
+<h1>Blog</h1>
+
 {% for post in blog.pageItems %}
-  <div class="post">
-    <h2><a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a></h2>
-    <div class="date">{{ post.date | date }}</div>
-    {{ post.description }}
-  </div>
+  <article class="post">
+    <div class="flex" style="gap: 8px; align-items: baseline; margin-bottom: 10px;">
+      <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
+      <time class="small gray block" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
+    </div>
+    <p>{{ post.description }}</p>
+  </article>
 {% endfor %}
 
 {% if blog.totalPages > 1 %}
-  {% if blog.nextPageUrl %}
-    <a href="{{ relativePathPrefix }}{{ blog.nextPageUrl }}">Next</a>
-  {% endif %}
+  <nav aria-label="Pagination">
+    <hr>
+    {% if blog.prevPageUrl %}
+      <a href="{{ relativePathPrefix }}{{ blog.prevPageUrl }}">Previous</a>
+    {% endif %}
 
-  {{ blog.pageNumber }} of {{ blog.totalPages }}
+    {{ blog.pageNumber }} of {{ blog.totalPages }}
 
-  {% if blog.prevPageUrl %}
-    <a href="{{ relativePathPrefix }}{{ blog.prevPageUrl }}">Previous</a>
-  {% endif %}
+    {% if blog.nextPageUrl %}
+      <a href="{{ relativePathPrefix }}{{ blog.nextPageUrl }}">Next</a>
+    {% endif %}
+  </nav>
 {% endif %}
