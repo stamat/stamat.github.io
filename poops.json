@@ -1,0 +1,60 @@
+{
+  "scripts": [{
+    "in": "src/js/main.js",
+    "out": "_site/dist/js/scripts.js",
+    "options": {
+      "sourcemap": true,
+      "minify": true,
+      "justMinified": false,
+      "format": "iife",
+      "target": "es2019"
+    }
+  }],
+  "styles": [{
+    "in": "src/styles/style.scss",
+    "out": "_site/dist/styles/style.css",
+    "options": {
+      "sourcemap": true,
+      "minify": true,
+      "justMinified": false
+    }
+  }],
+  "markup": {
+    "in": "src/markup",
+    "out": "_site",
+    "options": {
+      "site": {
+        "title": "Nikola Stamatovic Stamat - Senior Software Engineer",
+        "description": "Straightforward, no-bullshit bundler for the web.",
+        "url": "https://stamat.info"
+      },
+      "data": [
+        "_data/social.yaml"
+      ],
+      "includePaths": [
+        "_layouts",
+        "_partials"
+      ],
+      "timeDateFormat": "MMM D, YYYY",
+      "sitemap": "sitemap.xml"
+    }
+  },
+  "copy": [
+    {
+      "in": "src/static/stamat.vcf",
+      "out": "_site"
+    }
+  ],
+  "banner": "/* {{ name }} v{{ version }} | {{ homepage }} | {{ license }} License */",
+  "serve" : {
+    "port": 4040,
+    "base": "/_site/"
+  },
+  "livereload": true,
+  "watch": [
+    "src"
+  ],
+  "includePaths": [
+    "node_modules"
+  ]
+}

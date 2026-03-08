@@ -1,0 +1,123 @@
+* {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+body, html {
+  padding: 0px;
+    margin: 0px;
+
+    background-color: black;
+
+    font-family: monospace;
+    font-size: 12pt;
+    color: white;
+}
+
+body {
+    max-width: 750px;
+}
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+.padded-text {
+    padding-left: 86px;
+    padding-right: 86px;
+}
+
+pre.padded-text, .padded-text pre {
+    white-space: pre-wrap;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: grey;
+}
+
+a pre {
+    display: inline-block;
+}
+
+.expandable {
+    display: none;
+}
+
+p {
+    margin: 0;
+}
+
+p a {
+    text-decoration: underline;
+}
+
+.less {
+    display: none;
+}
+
+.bullet {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.bullet::before {
+    content: '*';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.sig {
+    color: #111;
+    font-size: 10px;
+}
+
+.sig:hover {
+    color: #555;
+}
+
+.center {
+    text-align: center;
+}
+
+@media screen and (max-width: 959px) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .padded-text {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    body, html {
+        font-size: 10pt;
+    }
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.menu-separator {
+   margin-left: 8px;
+   margin-right: 8px;
+}

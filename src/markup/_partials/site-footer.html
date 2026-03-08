@@ -1,0 +1,21 @@
+<footer>
+  <nav class="padded-text menu">
+    <ul>
+      {% for link in social %}
+        <li>
+          <a href="{% if 'http' in link.url %}{% else %}{{ relativePathPrefix }}{% endif %}{{ link.url }}" class="{% if link.url == page.url %}text-underline{% else %}text-none{% endif %} text-bold d-inline-block ml-lg-16 font-heading">{{ link.title }}</a>
+        </li>
+        {% if not loop.last %}
+          <li class="menu-separator" aria-hidden="true"> | </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+</footer>
+<br>
+<div class="sig padded-text center">
+  <p>▵</p>
+  <p>Σ</p>
+  <p>+</p>
+</div>
+<br>

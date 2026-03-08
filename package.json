@@ -1,0 +1,28 @@
+{
+  "name": "stamat-info",
+  "description": "Stamat's personal website https://stamat.info built with Poops bundler.",
+  "version": "1.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stamat/stamat.github.io.git"
+  },
+  "author": "Stamat <@stamat> (http://stamat.info)",
+  "homepage": "https://stamat.info",
+  "private": true,
+  "keywords": [
+    "personal website",
+    "portfolio",
+    "blog",
+    "stamat"
+  ],
+  "dependencies": {
+    "poops": "^1.2.0"
+  },
+    "scripts": {
+    "dev": "poops",
+    "build": "poops -b",
+    "lint": "stylelint 'src/scss/**/*.scss'",
+    "lint:fix": "npm run lint -- --fix"
+  }
+}

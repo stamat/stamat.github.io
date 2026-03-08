@@ -1,0 +1,29 @@
+---
+layout: blog
+description: Just some thoughts and updates.
+paginate: 10
+collection: true
+sort: date
+---
+<div class="text-center">
+  <h1>Blog</h1>
+</div>
+{% for post in blog.pageItems %}
+  <div class="post">
+    <h2><a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a></h2>
+    <div class="date">{{ post.date | date }}</div>
+    {{ post.description }}
+  </div>
+{% endfor %}
+
+{% if blog.totalPages > 1 %}
+  {% if blog.nextPageUrl %}
+    <a href="{{ relativePathPrefix }}{{ blog.nextPageUrl }}">Next</a>
+  {% endif %}
+
+  {{ blog.pageNumber }} of {{ blog.totalPages }}
+
+  {% if blog.prevPageUrl %}
+    <a href="{{ relativePathPrefix }}{{ blog.prevPageUrl }}">Previous</a>
+  {% endif %}
+{% endif %}
