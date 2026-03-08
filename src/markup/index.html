@@ -26,12 +26,12 @@ I'm Stamat!
 <br />
 <section>
     <h2>Recent Blog Posts</h2>
-    <div class="flex" style="gap: 16px; flex-wrap: wrap;">
+    <div style="gap: 16px; flex-wrap: wrap;">
         {% set posts = blog.items.slice(0, 3) %}
         {% for post in posts %}
-            <article class="post">
+            <article class="block">
                 <div class="flex" style="gap: 16px; align-items: baseline; margin-bottom: 10px;">
-                    <time class="small gray block" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
+                    <time class="small gray block" style="width: 100px; white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
                     <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
                 </div>
             </article>

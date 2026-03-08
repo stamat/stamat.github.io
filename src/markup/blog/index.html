@@ -8,7 +8,7 @@ sort: date
 <h1>Blog</h1>
 
 {% for post in blog.pageItems %}
-  <article class="post">
+  <article class="post block">
     <div class="flex" style="gap: 8px; align-items: baseline; margin-bottom: 10px;">
       <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
       <time class="small gray block" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
