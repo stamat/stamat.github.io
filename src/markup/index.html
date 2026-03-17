@@ -14,12 +14,8 @@ I'm Stamat!
 
 
 <div class="padded-text">
-    <a href="about.html" aria-label="More">
-        <pre class="eng">
-+-----------------+
-|      More       |
-+-----------------+
-        </pre>
+    <a href="about.html" class="btn">
+        <span class="btn-inner">More</span>
     </a>
 </div>
 <br />
@@ -29,12 +25,7 @@ I'm Stamat!
     <div style="gap: 16px; flex-wrap: wrap;">
         {% set posts = blog.items.slice(0, 3) %}
         {% for post in posts %}
-            <article class="block">
-                <div class="flex" style="gap: 16px; align-items: baseline; margin-bottom: 10px;">
-                    <time class="small gray block" style="width: 100px; white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
-                    <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
-                </div>
-            </article>
+            {% include "post-preview.html" %}
         {% endfor %}
     </div>
 </section>

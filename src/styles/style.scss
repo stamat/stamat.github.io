@@ -31,7 +31,7 @@ body {
 }
 
 a {
-    color: yellowgreen;
+    color: inherit;
 }
 
 a:hover {
@@ -71,9 +71,17 @@ p a {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: monospace;
-    color: dodgerblue;
     font-size: inherit;
-    margin-bottom: 12px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    &::before {
+        color: gray;
+    }
+
+    &:first-child {
+        margin-top: 0px;
+    }
 }
 
 h1:before {
@@ -112,30 +120,54 @@ blockquote {
 hr {
     border: none;
     border-top: 1px dashed gray;
+    margin-bottom: 24px;
+    margin-top: 24px;
+}
+
+hr.solid {
+    border-top-style: solid;
+}
+
+hr.white {
+    border-top-color: white;
+}
+
+hr.less-margin {
+    margin-bottom: 12pt;
+    margin-top: 12pt;
+}
+
+hr.even-less-margin {
     margin-bottom: 8px;
     margin-top: 8px;
 }
 
 strong {
     &::before {
+        color: gray;
         content: '**' / '';
     }
 
     &::after {
+        color: gray;
         content: '**' / '';
     }
 }
 
-em {
-    color: gray;
-
+em, .italic {
     &::before {
+        color: gray;
         content: '_' / '';
     }
 
     &::after {
+        color: gray;
         content: '_' / '';
     }
+}
+
+.italic {
+    font-style: italic;
 }
 
 ul {
@@ -152,14 +184,6 @@ ul {
             position: absolute;
             left: -18px;
         }
-    }
-}
-
-.small {
-    font-size: 10pt;
-
-    a {
-        color: inherit;
     }
 }
 
@@ -207,3 +231,25 @@ ul {
     border: 0;
 }
 
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+
+    &::before, &::after {
+        display: block;
+        content: '+-----------------+' / '';
+    }
+
+    .btn-inner {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        &::before, &::after {
+            display: block;
+            content: '|' / '';
+        }
+    }
+}

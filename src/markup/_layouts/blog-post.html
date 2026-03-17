@@ -14,13 +14,32 @@
   {% include "site-header.html" %}
 
   <main>
-    <div class="flex" style="gap: 8px;">
-      <a href="{{ relativePathPrefix }}blog/">Blog</a> / <h1>{{ page.title }}</h1>
+    <div class="gray">
+      <table>
+        <tr>
+          <td style="padding-right: 8px;">collection:</td>
+          <td><a href="{{ relativePathPrefix }}blog/">blog</a></td>
+        </tr>
+        <tr>
+          <td style="padding-right: 8px;">date:</td>
+          <td><time class="gray" datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date }}</time></td>
+        </tr>
+        {% if page.author %}
+        <tr>
+          <td style="padding-right: 8px;">author:</td>
+          <td>{{ page.author }}</td>
+        </tr>
+        {% endif %}
+        {% if page.tags %}
+        <tr>
+          <td style="padding-right: 8px;">tags:</td>
+          <td>{{ page.tags | join(', ') }}</td>
+        </tr>
+        {% endif %}
+      </table>
+      ---
     </div>
-
-    <div class="flex" style="gap: 8px; align-items: baseline; margin-bottom: 10px;">
-      <time class="small gray block" datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date }}</time>
-    </div>
+    <h1>{{ page.title }}</h1>
     {% block content %} {% endblock %}
   </main>
 

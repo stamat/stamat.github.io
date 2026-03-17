@@ -1,0 +1,6 @@
+<article class="block">
+  <div class="flex" style="gap: 16px; align-items: baseline; margin-bottom: 10px;">
+    <time class="gray block" style="white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date }}</time>
+    <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
+  </div>
+</article>

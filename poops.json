@@ -36,7 +36,7 @@
         "_layouts",
         "_partials"
       ],
-      "timeDateFormat": "MMM D, YYYY",
+      "timeDateFormat": "MMM DD, YYYY",
       "sitemap": "sitemap.xml"
     }
   },
