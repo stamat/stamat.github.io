@@ -14,7 +14,7 @@ Just like I promise my doctor that I'll start working out and watch my diet for 
 
 Then I start obsessing about details, creating these elaborate tools or setup props, in order to optimize and make the effort as effective as possible. It takes time... And of course some other life thing flies in, which is definitely more important than writing and working out, and the initial effort hangs in the background collecting dust. And nothing gets done.
 
-Can you smell a load of bullshit? It reeks.
+Can you smell a load of bullshit? It reeks. (_Says the man who can't sense smell. That's how you know it's about to get serious_)
 
 I could of course conjure up a solid excuse that to most would sound undeniable. I could point my finger and blame capitalism which spurs from the sole nature of human beings and their survival mechanisms - meaning just the human nature. Which I do, by the way, but not in the context of being aware of it.
 
@@ -40,4 +40,4 @@ Accept the imperfection.
 
 The amount of effort is what counts. Ideas are effortless.
 
-I bought a ring in an antique shop in Amsterdam [Kramer Kunst & Antiek](https://maps.app.goo.gl/bY7bUJhLZsC2BDh59). An onyx stone silver ring to commemorate this.
+I bought a ring in an antique shop [Kramer Kunst & Antiek](https://maps.app.goo.gl/bY7bUJhLZsC2BDh59) in Amsterdam . An onyx stone silver ring to commemorate this.
