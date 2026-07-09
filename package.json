@@ -17,9 +17,10 @@
     "stamat"
   ],
   "dependencies": {
-    "poops": "^1.2.0"
+    "poops": "^1.2.4",
+    "poops-images": "^1.2.0"
   },
-    "scripts": {
+  "scripts": {
     "dev": "poops",
     "build": "poops -b",
     "lint": "stylelint 'src/scss/**/*.scss'",
