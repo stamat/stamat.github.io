@@ -1,0 +1,29 @@
+---
+layout: page
+title: Photos
+---
+<style>
+  img {
+    width: 100%;
+    height: auto;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+</style>
+<div class="grid">
+  <figure>
+    {% image 'static/images/82E9B03D-0514-45EF-AD68-B0BA39CD2D96_1_105_c.jpeg', alt='', sizes='(max-width: 640px) 50vw, 25vw' %}
+    <figcaption>
+        <small><a href="https://maps.app.goo.gl/DNcrAuusjATpf5ZU7">📍 Limhamn, Malmö</a> | Late December 2018.</small>
+    </figcaption>
+  </figure>
+  <figure>
+    {% image 'static/images/7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o.jpeg', alt='', sizes='(max-width: 640px) 50vw, 25vw' %}
+    <figcaption>
+        <small><a href="https://maps.app.goo.gl/FBH3nYgwq5X1GCjZA">📍 Ostfriedhof, München</a> | 9th February 2024.</small>
+    </figcaption>
+  </figure>
+</div>

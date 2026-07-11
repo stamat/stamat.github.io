@@ -46,6 +46,19 @@
       "out": "_site"
     }
   ],
+  "images": {
+    "in": "src/images",
+    "out": "_site/static/images",
+    "sizes": [
+      { "width": 480 },
+      { "width": 960 },
+      { "width": 1440 },
+      { "name": "thumb", "width": 480, "height": 480, "crop": true },
+      { "name": "thumb", "width": 960, "height": 960, "crop": true }
+    ],
+    "format": ["webp"],
+    "quality": { "webp": 80 }
+  },
   "banner": "/* {{ name }} v{{ version }} | {{ homepage }} | {{ license }} License */",
   "serve" : {
     "port": 4040,
