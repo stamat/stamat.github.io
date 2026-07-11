@@ -1,27 +1,16 @@
 ---
 layout: default
 description: Just some thoughts and updates.
-paginate: 10
 collection: true
 sort: date
 ---
 <h1>Blog</h1>
 
-{% for post in blog.pageItems %}
-  {% include "post-preview.html" %}
+{% set byYear = blog.items | groupby("date", "year") %}
+{% for group in byYear %}
+
+  <h2>{{ group.key }}</h2>
+  {% for post in group.items %}
+    {% include "post-preview.html" %}
+  {% endfor %}
 {% endfor %}
-
-{% if blog.totalPages > 1 %}
-  <nav aria-label="Pagination">
-    <hr>
-    {% if blog.prevPageUrl %}
-      <a href="{{ relativePathPrefix }}{{ blog.prevPageUrl }}">Previous</a>
-    {% endif %}
-
-    {{ blog.pageNumber }} of {{ blog.totalPages }}
-
-    {% if blog.nextPageUrl %}
-      <a href="{{ relativePathPrefix }}{{ blog.nextPageUrl }}">Next</a>
-    {% endif %}
-  </nav>
-{% endif %}
