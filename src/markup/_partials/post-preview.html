@@ -1,6 +1,6 @@
 <article class="block">
   <div class="flex" style="gap: 16px; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
-    <a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a>
+    <div class="flex" style="align-items: center; gap: 8px;"><a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a><small class="gray" style="line-height: 1rem; vertical-align: middle; border: 1px solid gray; padding: 1px 2px;">{{ post.category }}</small></div>
     <time class="gray block" style="white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date('MMM-DD') }}</time>
   </div>
 </article>

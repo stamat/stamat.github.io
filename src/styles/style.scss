@@ -170,20 +170,35 @@ em, .italic {
     font-style: italic;
 }
 
-ul {
-    list-style: none;
-    padding-left: 18px;
+ul, ol {
+    padding-left: 32px;
     margin-bottom: 12pt;
 
     li {
-        position: relative;
         margin-bottom: 8px;
+    }
+}
+
+ul {
+    list-style: none;
+
+    li {
+        position: relative;
 
         &::before {
             content: '-' / '';
             position: absolute;
-            left: -18px;
+            left: -24px;
         }
+    }
+}
+
+[data-footnotes] {
+    font-size: 10pt;
+    color: gray;
+
+    li {
+        margin-bottom: 10pt;
     }
 }
 

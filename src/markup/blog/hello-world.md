@@ -3,6 +3,7 @@ layout: blog-post
 title: Hello World!
 date: 2026-03-17
 description: This is my first blog post, at least in a long long while...
+category: life
 published: true
 ---
 

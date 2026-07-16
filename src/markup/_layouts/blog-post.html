@@ -20,14 +20,10 @@
           <td style="padding-right: 8px;">collection:</td>
           <td><a href="{{ relativePathPrefix }}blog/">blog</a></td>
         </tr>
+        {% if page.category %}
         <tr>
-          <td style="padding-right: 8px;">date:</td>
-          <td><time class="gray" datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date }}</time></td>
-        </tr>
-        {% if page.author %}
-        <tr>
-          <td style="padding-right: 8px;">author:</td>
-          <td>{{ page.author }}</td>
+          <td style="padding-right: 8px;">category:</td>
+          <td>{{ page.category }}</td>
         </tr>
         {% endif %}
         {% if page.tags %}
@@ -36,6 +32,16 @@
           <td>{{ page.tags | join(', ') }}</td>
         </tr>
         {% endif %}
+        {% if page.author %}
+        <tr>
+          <td style="padding-right: 8px;">author:</td>
+          <td>{{ page.author }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td style="padding-right: 8px;">date:</td>
+          <td><time class="gray" datetime="{{ page.date | date('YYYY-MM-DD') }}">{{ page.date | date }}</time></td>
+        </tr>
       </table>
       ---
     </div>
