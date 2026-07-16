@@ -66,7 +66,7 @@ class DateTime extends HTMLElement {
             <style>
                 :host {
                     display: inline;
-                    font-family: monospace;
+                    font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
                     color: inherit;
                 }
             </style>
