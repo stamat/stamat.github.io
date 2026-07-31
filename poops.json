@@ -6,8 +6,7 @@
       "sourcemap": true,
       "minify": true,
       "justMinified": false,
-      "format": "iife",
-      "target": "es2019"
+      "format": "iife"
     }
   }],
   "styles": [{
@@ -36,7 +35,7 @@
         "_layouts",
         "_partials"
       ],
-      "timeDateFormat": "MMM DD, YYYY",
+      "dateFormat": "MMM DD, YYYY",
       "sitemap": "sitemap.xml"
     }
   },
@@ -61,8 +60,7 @@
   },
   "banner": "/* {{ name }} v{{ version }} | {{ homepage }} | {{ license }} License */",
   "serve" : {
-    "port": 4040,
-    "base": "/_site/"
+    "port": 4040
   },
   "livereload": true,
   "watch": [

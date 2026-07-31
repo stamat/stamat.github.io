@@ -17,7 +17,7 @@
     "stamat"
   ],
   "dependencies": {
-    "poops": "^1.5.0",
+    "poops": "^2.0.0",
     "poops-images": "^1.2.1"
   },
   "scripts": {
