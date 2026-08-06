@@ -27,8 +27,8 @@ body, html {
 }
 
 // Leading is for prose. Anything drawn out of characters — the ASCII logo, the
-// 404 art, the `+---+` buttons — is a picture whose rows have to touch.
-pre, .btn {
+// 404 art — is a picture whose rows have to touch.
+pre {
     line-height: 1;
 }
 
@@ -413,25 +413,12 @@ table.meta {
     border: 0;
 }
 
+// The `/ ''` is the content alt text: the arrow is decoration, and without it a
+// screen reader announces the glyph as part of the link's name.
 .btn {
-    display: inline-block;
-    text-decoration: none;
-    color: inherit;
+    text-decoration: underline;
 
-    &::before, &::after {
-        display: block;
-        content: '+-----------------+' / '';
-    }
-
-    .btn-inner {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: space-between;
-
-        &::before, &::after {
-            display: block;
-            content: '|' / '';
-        }
+    &::after {
+        content: ' >' / '';
     }
 }
