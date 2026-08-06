@@ -7,7 +7,6 @@
   <meta name="description" content="{{ page.description or site.description }}">
   <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/blog/feed.rss">
   <link rel="stylesheet" href="{{ relativePathPrefix }}dist/styles/style.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
 </head>
 <body>
   
@@ -15,7 +14,7 @@
 
   <main>
     <div class="gray">
-      <table>
+      <table class="meta">
         <tr>
           <td style="padding-right: 8px;">collection:</td>
           <td><a href="{{ relativePathPrefix }}blog/">blog</a></td>
@@ -23,7 +22,7 @@
         {% if page.category %}
         <tr>
           <td style="padding-right: 8px;">category:</td>
-          <td>{{ page.category }}</td>
+          <td><a href="{{ relativePathPrefix }}blog/category/{{ page.category | slugify }}/">{{ page.category }}</a></td>
         </tr>
         {% endif %}
         {% if page.tags %}

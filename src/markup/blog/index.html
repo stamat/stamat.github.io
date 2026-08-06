@@ -3,8 +3,10 @@ layout: default
 description: Just some thoughts and updates.
 collection: true
 sort: date
+taxonomies:
+  - name: category
 ---
-<h1>Blog</h1>
+<h1>{% if blog.activeTerm %}{{ blog.activeTerm | humanize }}{% else %}Blog{% endif %}</h1>
 
 {% set byYear = blog.items | groupby("date", "year") %}
 {% for group in byYear %}
