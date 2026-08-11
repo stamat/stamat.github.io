@@ -42,7 +42,7 @@
   },
   "copy": [
     {
-      "in": "src/static/stamat.vcf",
+      "in": "src/static/*",
       "out": "_site"
     }
   ],
