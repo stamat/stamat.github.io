@@ -1,0 +1,42 @@
+{
+  "src/markup/01101100011011110111011001100101.html": {
+    "hash": "7fedae956e575644af696dcea326b5c57a16bb8a",
+    "updated": "2026-07-16T13:06:43.048Z"
+  },
+  "src/markup/404.html": {
+    "hash": "8a932b989989188f1f1424feda7a23a251fc9554",
+    "updated": "2026-08-06T23:34:01.550Z"
+  },
+  "src/markup/about.html": {
+    "hash": "42b92d8a3a90890d2e7a7693df8a62587b1fabb2",
+    "updated": "2026-07-08T13:30:36.753Z"
+  },
+  "src/markup/blog/feed.rss": {
+    "hash": "69004a2c566fc4d26de6f598113361dc46118ce9",
+    "updated": "2025-09-14T20:15:50.304Z"
+  },
+  "src/markup/blog/hash-for-the-bucket-walk-for-the-truth.md": {
+    "hash": "742e9a70e1d55b5239d59f5f7eee0ff433c1b28a",
+    "updated": "2026-08-07T21:26:00.077Z"
+  },
+  "src/markup/blog/hello-world.md": {
+    "hash": "0b8fa51fbf693e67444a93143c97f0c68389fd1d",
+    "updated": "2026-07-16T12:50:31.633Z"
+  },
+  "src/markup/blog/i-read-the-code.md": {
+    "hash": "8e1c1a3b7c96eedb88a0dd17155a835a5d023262",
+    "updated": "2026-07-16T12:51:51.340Z"
+  },
+  "src/markup/blog/index.html": {
+    "hash": "c225f1cc1a1e5980053f557b3b9f2628cb49d041",
+    "updated": "2026-08-06T23:21:05.516Z"
+  },
+  "src/markup/index.html": {
+    "hash": "985b5ed6ed1736d424ef8551edc0bd8f46d59478",
+    "updated": "2026-08-06T23:33:53.134Z"
+  },
+  "src/markup/photos.html": {
+    "hash": "ff0abb2a6020c7cee813d99f63c2f907c6dc8ebc",
+    "updated": "2026-07-11T22:10:24.862Z"
+  }
+}

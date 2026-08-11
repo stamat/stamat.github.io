@@ -23,8 +23,8 @@
     "out": "_site",
     "options": {
       "site": {
-        "title": "Nikola Stamatovic Stamat - Senior Software Engineer",
-        "description": "Straightforward, no-bullshit bundler for the web.",
+        "title": "@stamat",
+        "description": "For no one and everyone, Stamat's personal website and blog. A collection of thoughts and projects.",
         "url": "https://stamat.info"
       },
       "data": [
@@ -36,7 +36,8 @@
         "_partials"
       ],
       "dateFormat": "MMM DD, YYYY",
-      "sitemap": "sitemap.xml"
+      "sitemap": "sitemap.xml",
+      "lastUpdated": "meta/updates.json"
     }
   },
   "copy": [
