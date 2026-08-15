@@ -102,13 +102,33 @@ ownTitle: true
   </div>
 </div>
 <div class="photos" id="list">
-  {% for photo in photos | sort(reverse=true, attribute='date') %}
+  {% set gallery = [] %}
+  {% for img in 'static/images' | images %}
+    {% set file = img.path | replace('static/images/', '') %}
+    {% set match = [] %}
+    {% for p in photos %}{% if p.file == file %}{% set _ = match.push(p) %}{% endif %}{% endfor %}
+    {% set meta = match[0] %}
+    {% set date = meta.date or img.date %}
+    {% set _ = gallery.push({
+      file: file,
+      src: img.path,
+      full: (img.outputs | rejectattr('name') | sort(attribute='width') | last).path,
+      date: date,
+      when: meta.when,
+      place: meta.place,
+      map: meta.map or img.exif.gps.googleMapsUrl,
+      camera: meta.camera or (img.exif.make ~ ' ' ~ img.exif.model ~ (' | ' ~ img.exif.lensModel if img.exif.lensModel else '') if img.exif.model else ''),
+      description: meta.description,
+      alt: meta.alt or meta.description or ('Photograph' ~ (', ' ~ meta.place if meta.place else '') ~ ', ' ~ (date | date("D MMMM YYYY")))
+    }) %}
+  {% endfor %}
+  {% for photo in gallery | sort(reverse=true, attribute='date') %}
   <figure id="photo-{{ photo.file }}">
     <a class="photo-link" href="#photo-{{ photo.file }}">
-      {% image 'static/images/' + photo.file + '.jpeg', alt=photo.alt or photo.description or '', sizes='(max-width: 959px) 100vw, 640px' %}
+      {% image photo.src, alt=photo.alt, sizes='(max-width: 959px) 100vw, 640px' %}
     </a>
     <figcaption>
-      <p>{% if photo.map %}<a href="{{ photo.map }}"><span aria-hidden="true">📍</span> {{ photo.place }}</a> · {% elif photo.place %}<span aria-hidden="true">📍</span> {{ photo.place }} · {% endif %}<time datetime="{{ photo.date }}">{{ photo.when or (photo.date | date("D MMMM YYYY")) }}</time> · <a href="{{ relativePathPrefix }}static/images/{{ photo.file }}.webp">full size</a></p>
+      <p>{% if photo.map %}<a href="{{ photo.map }}"><span aria-hidden="true">📍</span> {{ photo.place or "on the map" }}</a> · {% elif photo.place %}<span aria-hidden="true">📍</span> {{ photo.place }} · {% endif %}<time datetime="{{ photo.date }}">{{ photo.when or (photo.date | date("D MMMM YYYY")) }}</time> · <a href="{{ relativePathPrefix }}{{ photo.full }}">full size</a></p>
       {% if photo.camera %}<p class="photo-camera"><span aria-hidden="true">📷</span> {{ photo.camera }}</p>{% endif %}
       {% if photo.description %}<p class="photo-description">{{ photo.description }}</p>{% endif %}
     </figcaption>

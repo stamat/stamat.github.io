@@ -1,18 +1,27 @@
-# file: basename in src/images — source is <file>.jpeg, full-size output is <file>.webp
-# date: sorts the grid, newest first. when: display label, when the exact day is a lie.
-# alt: falls back to description. camera: the body that shot it, not the scanner EXIF names.
-- file: "7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o"
+# Overrides only. Dropping an image in src/images puts it on the page with its EXIF date and
+# GPS link; an entry here is how you correct or enrich that, key by key. No entry is fine.
+#
+# file: filename in src/images, extension included — this is the key, nothing matches without it
+# date: the day it was taken, when EXIF holds the day it was scanned. Sorts the page, newest first
+# when: display label, for when the exact day is a lie. 
+# place: the name EXIF has no field for
+# map: overrides the EXIF GPS link. 
+# camera: the body that shot it, not the scanner EXIF names
+# alt: falls back to description, then to a bare "Photograph, <place>, <date>" — write one
+- file: "IMG_2604.jpg"
+  place: "Portofino, Genoa, Italy"
+- file: "7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o.jpeg"
   date: "2024-02-09"
-  place: "Ostfriedhof, München"
+  place: "Ostfriedhof, München, Germany"
   map: "https://maps.app.goo.gl/FBH3nYgwq5X1GCjZA"
   camera: "Canon AE-1 | Tokina 35-105mm ø55"
   description: ""
   alt: "A winged stone angel carved in relief inside a rounded niche, hooded and looking past the camera, hands closed around an upright staff."
 
-- file: "82E9B03D-0514-45EF-AD68-B0BA39CD2D96_1_105_c"
+- file: "82E9B03D-0514-45EF-AD68-B0BA39CD2D96_1_105_c.jpeg"
   date: "2018-12-28"
   when: "Late December 2018"
-  place: "Limhamn, Malmö"
+  place: "Limhamn, Malmö, Sweden"
   map: "https://maps.app.goo.gl/DNcrAuusjATpf5ZU7"
   camera: "Canon AE-1 | Tokina 35-105mm ø55"
   description: ""
