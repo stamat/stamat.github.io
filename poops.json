@@ -29,7 +29,8 @@
       },
       "data": [
         "_data/social.yaml",
-        "_data/nav.yaml"
+        "_data/nav.yaml",
+        "_data/photos.yml"
       ],
       "includePaths": [
         "_layouts",

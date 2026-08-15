@@ -42,20 +42,14 @@ title: Photos
   }
 </style>
 <div class="grid">
+  {% for photo in photos | sort(reverse=true, attribute='date') %}
   <figure>
-    <a href="{{ relativePathPrefix }}static/images/82E9B03D-0514-45EF-AD68-B0BA39CD2D96_1_105_c.webp">
-      {% image 'static/images/82E9B03D-0514-45EF-AD68-B0BA39CD2D96_1_105_c.jpeg', size='thumb', alt='', sizes='33vw' %}
+    <a href="{{ relativePathPrefix }}static/images/{{ photo.file }}.webp">
+      {% image 'static/images/' + photo.file + '.jpeg', size='thumb', alt=photo.alt or photo.description or '', sizes='33vw' %}
     </a>
     <figcaption>
-      <a href="https://maps.app.goo.gl/DNcrAuusjATpf5ZU7">📍 Limhamn, Malmö</a> · Late December 2018
+      {% if photo.map %}<a href="{{ photo.map }}">📍 {{ photo.place }}</a> · {% elif photo.place %}📍 {{ photo.place }} · {% endif %}{{ photo.when or (photo.date | date("D MMMM YYYY")) }}{% if photo.camera %} · 📷 {{ photo.camera }}{% endif %}
     </figcaption>
   </figure>
-  <figure>
-    <a href="{{ relativePathPrefix }}static/images/7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o.webp">
-      {% image 'static/images/7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o.jpeg', size='thumb', alt='', sizes='33vw' %}
-    </a>
-    <figcaption>
-      <a href="https://maps.app.goo.gl/FBH3nYgwq5X1GCjZA">📍 Ostfriedhof, München</a> · 9th February 2024
-    </figcaption>
-  </figure>
+  {% endfor %}
 </div>
