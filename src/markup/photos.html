@@ -1,54 +1,116 @@
 ---
 layout: page
 title: Photos
+ownTitle: true
 ---
 <style>
-  .grid {
+  .page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 1ch;
+  }
+
+  .view-switch {
+    color: var(--fg-color-subtle);
+    margin-bottom: 1em;
+  }
+  .view-switch a {
+    text-decoration: underline;
+  }
+
+  .photos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
   }
-  .grid figure {
-    margin: 0;
-    position: relative;
+  .photos figure {
+    scroll-margin-top: var(--block-gap);
   }
-  .grid a {
+  .photo-link {
     display: block;
     aspect-ratio: 1;
     overflow: hidden;
   }
-  .grid img {
+  .photo-link img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .grid figcaption {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 8px;
-    font-size: 0.75rem;
-    color: #fff;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    opacity: 0;
-    transition: opacity 0.15s;
+  .photos figcaption {
+    display: none;
   }
-  .grid figure:hover figcaption {
-    opacity: 1;
+  .photos figcaption p {
+    margin-bottom: 0;
   }
-  .grid figcaption a {
-    display: inline;
-    color: #fff;
+  .photo-camera {
+    color: var(--fg-color-subtle);
+  }
+  .photo-description {
+    margin-top: 0.8em;
+  }
+
+  /* The view is whatever the URL says. #list targets the container and
+     #photo-… targets one figure; either means list, and everything else —
+     #grid, or no hash at all — means grid. Written this way round because a
+     link can leave a fragment behind but nothing can un-check a radio, so the
+     grid link is the only thing that can undo a photo click. */
+  /* Spelled out rather than folded into :is(), because :has() inside :has() is
+     invalid — :is(:target, :has(…)) under a body:has() drops the whole rule. */
+  .photos:target,
+  .photos:has(figure:target) {
+    display: block;
+  }
+  .photos:target figure,
+  .photos:has(figure:target) figure {
+    margin-bottom: calc(var(--block-gap) * 2);
+  }
+  /* Inert in list view: the link only exists to reach this figure, and clicking
+     it once you are already here re-navigates to the same fragment and jumps
+     the page. The caption carries the full-size link instead. */
+  .photos:target .photo-link,
+  .photos:has(figure:target) .photo-link {
+    aspect-ratio: auto;
+    pointer-events: none;
+  }
+  .photos:target .photo-link img,
+  .photos:has(figure:target) .photo-link img {
+    height: auto;
+  }
+  .photos:target figcaption,
+  .photos:has(figure:target) figcaption {
+    display: block;
+    margin-top: 0.8em;
+  }
+
+  body:has(#list:target) .view-switch a[href="#list"],
+  body:has(figure:target) .view-switch a[href="#list"],
+  body:not(:has(#list:target)):not(:has(figure:target)) .view-switch a[href="#grid"] {
+    background-color: var(--fg-color);
+    color: var(--bg-color);
+    text-decoration: none;
   }
 </style>
-<div class="grid">
+<div class="page-head">
+  <h1 id="grid">{{ page.title }}</h1>
+  <div class="view-switch">
+    <span>view:</span>
+    <a href="#grid">grid</a>
+    <a href="#list">list</a>
+  </div>
+</div>
+<div class="photos" id="list">
   {% for photo in photos | sort(reverse=true, attribute='date') %}
-  <figure>
-    <a href="{{ relativePathPrefix }}static/images/{{ photo.file }}.webp">
-      {% image 'static/images/' + photo.file + '.jpeg', size='thumb', alt=photo.alt or photo.description or '', sizes='33vw' %}
+  <figure id="photo-{{ photo.file }}">
+    <a class="photo-link" href="#photo-{{ photo.file }}">
+      {% image 'static/images/' + photo.file + '.jpeg', alt=photo.alt or photo.description or '', sizes='(max-width: 959px) 100vw, 640px' %}
     </a>
     <figcaption>
-      {% if photo.map %}<a href="{{ photo.map }}">📍 {{ photo.place }}</a> · {% elif photo.place %}📍 {{ photo.place }} · {% endif %}{{ photo.when or (photo.date | date("D MMMM YYYY")) }}{% if photo.camera %} · 📷 {{ photo.camera }}{% endif %}
+      <p>{% if photo.map %}<a href="{{ photo.map }}"><span aria-hidden="true">📍</span> {{ photo.place }}</a> · {% elif photo.place %}<span aria-hidden="true">📍</span> {{ photo.place }} · {% endif %}<time datetime="{{ photo.date }}">{{ photo.when or (photo.date | date("D MMMM YYYY")) }}</time> · <a href="{{ relativePathPrefix }}static/images/{{ photo.file }}.webp">full size</a></p>
+      {% if photo.camera %}<p class="photo-camera"><span aria-hidden="true">📷</span> {{ photo.camera }}</p>{% endif %}
+      {% if photo.description %}<p class="photo-description">{{ photo.description }}</p>{% endif %}
     </figcaption>
   </figure>
   {% endfor %}
