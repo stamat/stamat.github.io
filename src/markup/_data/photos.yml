@@ -8,6 +8,8 @@
 # map: overrides the EXIF GPS link. 
 # camera: the body that shot it, not the scanner EXIF names
 # alt: falls back to description, then to a bare "Photograph, <place>, <date>" — write one
+- file: "IMG_0407.jpg"
+  place: "Praça do Rossio, Lisbon, Portugal"
 - file: "IMG_2604.jpg"
   place: "Portofino, Genoa, Italy"
 - file: "7D8E032D-2B60-4CB6-9406-DE5B41BC68F8_1_102_o.jpeg"
