@@ -1,6 +1,6 @@
 ---
 layout: blog-post
-title: How a classic derail led me to create a fast object deduplication function
+title: How a derail led me to create a fastest object deduplication function
 description: A sequel, thirteen years late, on the CRC32 HashCache and how it became dedupe() in book-of-spells.
 date: 2026-08-12
 published: true
@@ -8,8 +8,6 @@ category: code
 ---
 
 _A sequel, thirteen years late, to [JavaScript: quickly find very large objects in a large array](https://stamat.wordpress.com/2013/07/03/javascript-quickly-find-very-large-objects-in-a-large-array/) and [JavaScript object ordered property stringify](https://stamat.wordpress.com/2013/07/03/javascript-object-ordered-property-stringify/)._
-
-Or _how I stopped worrying and love the bomb_.
 
 ## How the derail happened
 
@@ -205,6 +203,8 @@ Collisions tie. 1 each at 100,000 distinct values; 103 against 91 at a million. 
 
 ### `deepEqual`
 
+Does exactly what the function name says, checks if object A is equal to the object B, deeply, recursively.
+
 ```javascript
 deepEqual({ a: 1, b: [1, 2] }, { b: [1, 2], a: 1 }); // true — key order isn't data
 deepEqual([1, 2], [2, 1]); // false — array order is data
@@ -222,6 +222,8 @@ It walks both values side by side and quits at the first difference. It also sur
 | es-toolkit `isEqual` 1.50.0  | 352k ops/s           | 3.3M ops/s               | 845k ops/s     | 1.5M ops/s     |
 | `util.isDeepStrictEqual`     | 577k ops/s           | 6.9M ops/s               | 1.6M ops/s     | **2.3M ops/s** |
 
+ops/s — comparisons finished per second, higher is better.
+
 fast-deep-equal is ahead on a plain equal document, by 1.3×, and gives up entirely on the last two columns. Node's own is 17× ahead on cycles. This is not the fastest deep equal on the board — it is the one that answers every column.
 
 ### `dedupe`
@@ -229,7 +231,7 @@ fast-deep-equal is ahead on a plain equal document, by 1.3×, and gives up entir
 Hand it an array, get the array back with the structural duplicates gone. First occurrence wins, order preserved, your input untouched.
 
 ```javascript
-dedupe([{ a: 1 }, { a: 1 }, { b: 2 }]).length; // => 2 { a: 1 }, { b: 2 }
+dedupe([{ a: 1 }, { a: 1 }, { b: 2 }]); // => { a: 1 }, { b: 2 }
 ```
 
 Inside: fold each value to a number, look in that one bucket, `deepEqual` against the one or two things already sitting there. The alternative is comparing everything against everything — what every `uniqWith` on npm does — which is fine up to about thirty values and hopeless above it.
@@ -260,11 +262,11 @@ new DeepSet([{ a: 1 }]).has({ a: 1 }); // true
 new DeepSet([{ id: 7, name: "Al" }]).has({ name: "Al", id: 7 }); // true
 ```
 
-Underneath it is `dedupe` with the filing cabinet kept instead of binned: fold the value to a number, look in that one bucket, `deepEqual` to be sure. Which is why `[...new DeepSet(arr)]` is exactly `dedupe(arr)` — same pass, one throws the index away and one hands it to you.
+Underneath it is the same mechanism powering `dedupe`: fold the value to a number, look in that one bucket, `deepEqual` to be sure. Which is why `[...new DeepSet(arr)]` is exactly `dedupe(arr)` — same pass, `dedupe` throws the index away and `DeepSet` hands it to you.
 
 Use it when the same unchanging pile gets asked about over and over. For a single question `arr.some((x) => deepEqual(x, value))` beats it outright: the fold has to read your whole value before it can say a word, while `deepEqual` gives up on most candidates after a key or two. Building the index pays back from around thirty queries, and that figure barely moves between a thousand values and a hundred thousand.
 
-One rule, and it bites: **don't change a value while it's in there.** Membership is decided by contents, so editing a value changes which bucket it belongs in while it's still filed under the old number. It goes missing — from `has`, from `delete`, and from its own reference:
+One rule: **don't change a value while it's in there. It won't be reflected.** You will have to delete the old entry first and then add the new one. Because membership is decided by contents, not by the value or reference.
 
 ```javascript
 const moving = { a: 1 };
@@ -275,7 +277,7 @@ seen.has(moving); // false — it's in here, filed under who it used to be
 
 Native `Set` has no such rule, because a reference survives being edited and a shape does not. Add copies if the originals move.
 
-When you have a stack of 1000+ objects and you need to find the one, and you need it fast, use the `DeepSet`. Wish this worked on my dating life... But I guess I wasn't too DEEP! 😱
+When you have a stack of 1000+ objects and you need to find the one, and you need it fast, use the `deepEqual`. If you need to query several times in a row, use the `DeepSet`. Wish this worked on my dating life... But I guess I wasn't too DEEP! 😱
 
 ### Bonus: `clone`
 
@@ -295,6 +297,8 @@ structuredClone(options); // throws DataCloneError
 | rfdc 1.4.1                    | **6.6M ops/s**      | **1.1M ops/s**  | unsound                  | 🤮 throws      |
 | lodash `cloneDeep` 4.18.1     | 1.7M ops/s          | 358k ops/s      | 848 ops/s                | 1.7M ops/s     |
 | es-toolkit `cloneDeep` 1.50.0 | 2.4M ops/s          | 511k ops/s      | 14k ops/s                | 2.4M ops/s     |
+
+ops/s — comparisons finished per second, higher is better.
 
 rfdc wins the first two columns by up to 2×, and those defaults are exactly what the last two columns cost it. Same shape of trade as above: pay a little on plain data, get the copy back intact on everything else.
 
