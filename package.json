@@ -23,6 +23,7 @@
   "scripts": {
     "dev": "poops",
     "build": "poops -b",
+    "test": "node --test 'script/*.test.mjs'",
     "lint": "stylelint 'src/scss/**/*.scss'",
     "lint:fix": "npm run lint -- --fix"
   }
