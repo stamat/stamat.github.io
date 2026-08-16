@@ -4,6 +4,7 @@
 //
 // The post text is the entry's title and description, or whatever a `share:` front matter key
 // holds instead — a `|` block there when it wants line breaks. The link is appended either way.
+// `share: false` publishes the entry without posting it anywhere.
 //
 // "Became published" is decided by comparing two commits rather than by keeping a list of
 // what was already posted: an entry counts as new when `published` is true at HEAD and was
@@ -108,6 +109,13 @@ export function frontmatter (source) {
 export const isPublished = (source) => frontmatter(source).published === 'true'
 
 /**
+ * `share: false` opts an entry out of being posted at all. Only the exact word — YAML's other
+ * falsy spellings (`no`, `off`) are not read, because this parser sees strings, not booleans,
+ * and quietly treating `no` as prose to post is worse than not accepting it.
+ */
+export const isOptedOut = (fields) => fields.share === 'false'
+
+/**
  * `share` replaces title and description when set; the link is appended either way, unless the
  * author already wrote it into `share` — so the URL lands in the post exactly once.
  *
@@ -189,19 +197,27 @@ async function main () {
 
   const siteUrl = JSON.parse(readFileSync('poops.json', 'utf8')).markup.options.site.url.replace(/\/$/, '')
 
-  const paths = newlyPublished(baseSha, headSha)
-  if (!paths.length) {
+  const found = newlyPublished(baseSha, headSha).map((path) => ({ path, fields: frontmatter(readAt(headSha, path)) }))
+  if (!found.length) {
     console.log('No newly published entries — nothing posted.')
     return
   }
-  if (paths.length > MAX_PER_RUN) {
-    console.log(`${paths.length} newly published entries, capped at ${MAX_PER_RUN}. Not posted: ${paths.slice(MAX_PER_RUN).join(', ')}`)
+
+  // Opting out is counted before the cap, so silent entries cannot push loud ones off the end.
+  const optedOut = found.filter((entry) => isOptedOut(entry.fields))
+  const entries = found.filter((entry) => !isOptedOut(entry.fields))
+  if (optedOut.length) console.log(`Opted out with share: false — ${optedOut.map((entry) => entry.path).join(', ')}`)
+  if (!entries.length) {
+    console.log('Every newly published entry opted out — nothing posted.')
+    return
+  }
+  if (entries.length > MAX_PER_RUN) {
+    console.log(`${entries.length} entries to share, capped at ${MAX_PER_RUN}. Not posted: ${entries.slice(MAX_PER_RUN).map((entry) => entry.path).join(', ')}`)
   }
 
   if (!dryRun && credentialsMissing) throw new Error(CREDENTIALS_ERROR)
 
-  for (const path of paths.slice(0, MAX_PER_RUN)) {
-    const fields = frontmatter(readAt(headSha, path))
+  for (const { path, fields } of entries.slice(0, MAX_PER_RUN)) {
     const text = composePost({
       share: fields.share,
       title: fields.title || basename(path, '.md'),

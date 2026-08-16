@@ -8,7 +8,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 
-import { percentEncode, signatureBaseString, frontmatter, isPublished, composePost } from './post-to-x.mjs'
+import { percentEncode, signatureBaseString, frontmatter, isPublished, isOptedOut, composePost } from './post-to-x.mjs'
 
 test('percent encoding escapes the five characters encodeURIComponent leaves alone', () => {
   assert.equal(percentEncode("!'()*"), '%21%27%28%29%2A', 'a character OAuth wants escaped survived raw')
@@ -85,6 +85,19 @@ test('a share message that already carries the link does not get it twice', () =
 test('an empty share falls back to the title, it does not post a blank', () => {
   const text = composePost({ share: '', title: 'Hello World!', url: 'https://stamat.info/blog/hello-world.html' })
   assert.equal(text, 'Hello World!\n\nhttps://stamat.info/blog/hello-world.html')
+})
+
+test('share: false opts an entry out, and nothing else does', () => {
+  assert.equal(isOptedOut(frontmatter('---\nshare: false\n---\n')), true)
+  assert.equal(isOptedOut(frontmatter('---\ntitle: A post\n---\n')), false, 'an entry with no share key was skipped')
+  assert.equal(isOptedOut(frontmatter('---\nshare: Some words.\n---\n')), false, 'a share message was read as an opt-out')
+  assert.equal(isOptedOut(frontmatter('---\nshare: "false"\n---\n')), true, 'quoting it changed the meaning')
+})
+
+test('a published entry that opts out is still published, it is only unshared', () => {
+  const source = '---\npublished: true\nshare: false\n---\n'
+  assert.equal(isPublished(source), true, 'opting out of sharing was read as opting out of publishing')
+  assert.equal(isOptedOut(frontmatter(source)), true)
 })
 
 test('a literal block scalar keeps the line breaks the author wrote', () => {
