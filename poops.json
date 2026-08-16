@@ -38,6 +38,8 @@
       ],
       "dateFormat": "MMM DD, YYYY",
       "sitemap": "sitemap.xml",
+      "llms": "llms.txt",
+      "robots": "robots.txt",
       "lastUpdated": "meta/updates.json"
     }
   },

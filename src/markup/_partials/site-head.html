@@ -1,0 +1,9 @@
+<meta charset="UTF-8">
+<title>{{ page.title or site.title }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ page | description(site) }}
+{{ page | og(site) }}
+<link rel="icon" href="{{ relativePathPrefix }}stamat.png" type="image/png">
+<link rel="apple-touch-icon" href="{{ relativePathPrefix }}stamat.png">
+<link rel="alternate" type="application/rss+xml" href="{{ site.url }}/blog/feed.rss">
+<link rel="stylesheet" href="{{ relativePathPrefix }}dist/styles/style.min.css">
