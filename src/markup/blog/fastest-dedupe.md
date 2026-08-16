@@ -304,7 +304,7 @@ rfdc wins the first two columns by up to 2×, and those defaults are exactly wha
 
 Rule of thumb: pure data and you are not already importing this, use `structuredClone`. Otherwise use `clone`.
 
-Who are you? I'm your `structuredClone`. And who am I? I'm your `clone` too. Remember the [MadTv Parody of Stolen Identity](https://www.youtube.com/watch?v=S_hWH2Aynpk)?
+Who are you? I'm your `structuredClone`. And who am I? You are my `clone` too. Remember the [MadTv Parody of Stolen Identity](https://www.youtube.com/watch?v=S_hWH2Aynpk)?
 
 ## Did I learn not to maniacally diverge after this?
 
