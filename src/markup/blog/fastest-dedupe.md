@@ -1,6 +1,6 @@
 ---
 layout: blog-post
-title: How a derail led me to create a fastest object deduplication function
+title: How a derail led me to create the fastest object deduplication function
 description: A sequel, thirteen years late, on the CRC32 HashCache and how it became dedupe() in book-of-spells.
 date: 2026-08-12
 published: true
