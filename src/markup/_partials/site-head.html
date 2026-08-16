@@ -3,6 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {{ page | description(site) }}
 {{ page | og(site) }}
+{# Pairs with site.image — poops merges an og:image:alt only from a page's own `og` object, so a
+   site-wide one is emitted here. Escaped by hand: poops renders with autoescape off. #}
+{% if site.imageAlt %}<meta property="og:image:alt" content="{{ site.imageAlt | escape }}">{% endif %}
 <link rel="icon" href="{{ relativePathPrefix }}stamat.png" type="image/png">
 <link rel="apple-touch-icon" href="{{ relativePathPrefix }}stamat.png">
 <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/blog/feed.rss">

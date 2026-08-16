@@ -25,7 +25,9 @@
       "site": {
         "title": "@stamat",
         "description": "For no one and everyone, Stamat's personal website and blog. A collection of thoughts and projects.",
-        "url": "https://stamat.info"
+        "url": "https://stamat.info",
+        "image": "stamat-banner.jpg",
+        "imageAlt": "A Super Mario Bros. title screen parody reading SUPER STAMAT BRO. ENTERTAINMENT SYSTEM in red and gold over a black starfield, a pixel-art figure in a long dark coat standing at the left, and a \"Nintendon't\" seal below the title."
       },
       "data": [
         "_data/social.yaml",
