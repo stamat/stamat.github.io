@@ -65,3 +65,53 @@ test('a short entry keeps its description', () => {
   const text = composePost({ title: 'Hello World!', description: 'A first post.', url: 'https://stamat.info/blog/hello-world.html' })
   assert.equal(text, 'Hello World!\n\nA first post.\n\nhttps://stamat.info/blog/hello-world.html')
 })
+
+test('a share message replaces the title and description, and still gets the link', () => {
+  const text = composePost({
+    share: 'Thirteen years late, but here it is.',
+    title: 'How a classic derail led me to create a fast object deduplication function',
+    description: 'A sequel.',
+    url: 'https://stamat.info/blog/fastest-dedupe.html'
+  })
+  assert.equal(text, 'Thirteen years late, but here it is.\n\nhttps://stamat.info/blog/fastest-dedupe.html')
+})
+
+test('a share message that already carries the link does not get it twice', () => {
+  const url = 'https://stamat.info/blog/x.html'
+  const text = composePost({ share: `Read it here: ${url} — worth your time`, title: 'T', url })
+  assert.equal(text.split(url).length - 1, 1, 'the link was appended on top of one already written')
+})
+
+test('an empty share falls back to the title, it does not post a blank', () => {
+  const text = composePost({ share: '', title: 'Hello World!', url: 'https://stamat.info/blog/hello-world.html' })
+  assert.equal(text, 'Hello World!\n\nhttps://stamat.info/blog/hello-world.html')
+})
+
+test('a literal block scalar keeps the line breaks the author wrote', () => {
+  const fields = frontmatter([
+    '---',
+    'title: A post',
+    'share: |',
+    '  First line.',
+    '',
+    '  Second line.',
+    'published: true',
+    '---',
+    '',
+    'Body.'
+  ].join('\n'))
+  assert.equal(fields.share, 'First line.\n\nSecond line.', 'the block was flattened or the indent survived')
+  assert.equal(fields.published, 'true', 'the key after the block was swallowed by it')
+  assert.equal(fields.title, 'A post')
+})
+
+test('a folded block scalar joins lines with spaces and keeps the paragraph break', () => {
+  const fields = frontmatter('---\nshare: >\n  One two\n  three.\n\n  Next para.\n---\n')
+  assert.equal(fields.share, 'One two three.\nNext para.')
+})
+
+test('a block scalar is not confused by a colon inside it', () => {
+  const fields = frontmatter('---\nshare: |\n  Note: this has a colon\nafter: yes\n---\n')
+  assert.equal(fields.share, 'Note: this has a colon', 'the colon line was parsed as a new key')
+  assert.equal(fields.after, 'yes', 'the key after the block was lost')
+})

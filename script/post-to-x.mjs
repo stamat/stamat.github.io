@@ -2,6 +2,9 @@
 
 // Posts blog entries to X when they become published, one post per entry, never twice.
 //
+// The post text is the entry's title and description, or whatever a `share:` front matter key
+// holds instead — a `|` block there when it wants line breaks. The link is appended either way.
+//
 // "Became published" is decided by comparing two commits rather than by keeping a list of
 // what was already posted: an entry counts as new when `published` is true at HEAD and was
 // false or absent at BASE_SHA. That covers both a file added already published and a draft
@@ -62,30 +65,61 @@ export function authorizationHeader ({ method, url, consumerKey, consumerSecret,
 }
 
 /**
- * Scalar front matter keys only. The blog uses lists (`tags`) and this drops them silently,
- * which is correct here and wrong the moment a value this reads becomes a list or a block
- * scalar — ponytail: naive on purpose, reach for a YAML parser when a real one is needed.
+ * Scalars and `|`/`>` block scalars. Block support exists for `share`, which is prose written
+ * for a timeline and wants its line breaks — a quoted one-liner would hand back a literal `\n`.
+ *
+ * Lists are still dropped silently, so `tags` reads as empty — ponytail: naive on purpose, and
+ * the day a value this reads becomes a list, take the `yaml` package poops already pulls in
+ * rather than growing this further.
  */
 export function frontmatter (source) {
   const block = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)
   if (!block) return {}
   const fields = {}
-  for (const line of block[1].split(/\r?\n/)) {
-    const pair = /^([A-Za-z_][\w-]*):[ \t]*(.*)$/.exec(line)
+  const lines = block[1].split(/\r?\n/)
+
+  for (let i = 0; i < lines.length; i++) {
+    const pair = /^([A-Za-z_][\w-]*):[ \t]*(.*)$/.exec(lines[i])
     if (!pair) continue
-    fields[pair[1]] = pair[2].trim().replace(/^["'](.*)["']$/, '$1')
+    const [, key, inline] = pair
+    const style = /^([|>])([+-]?)\s*$/.exec(inline)
+
+    if (!style) {
+      fields[key] = inline.trim().replace(/^["'](.*)["']$/, '$1')
+      continue
+    }
+
+    // Indented or blank lines belong to the block; the first line at column zero ends it.
+    const body = []
+    while (i + 1 < lines.length && (lines[i + 1].trim() === '' || /^[ \t]/.test(lines[i + 1]))) body.push(lines[++i])
+
+    const indent = Math.min(...body.filter((l) => l.trim()).map((l) => /^[ \t]*/.exec(l)[0].length), Infinity)
+    const text = body.map((l) => l.slice(Number.isFinite(indent) ? indent : 0))
+    // `|` keeps every newline, `>` folds runs of text into one line and a blank line into a break.
+    const joined = style[1] === '|'
+      ? text.join('\n')
+      : text.reduce((out, line) => (line.trim() ? (out && !out.endsWith('\n') ? `${out} ${line}` : out + line) : `${out}\n`), '')
+    fields[key] = style[2] === '+' ? joined : joined.replace(/\n+$/, '')
   }
+
   return fields
 }
 
 export const isPublished = (source) => frontmatter(source).published === 'true'
 
-/** Title, then description while it fits, then the link — the link is never the part dropped. */
-export function composePost ({ title, description, url }) {
+/**
+ * `share` replaces title and description when set; the link is appended either way, unless the
+ * author already wrote it into `share` — so the URL lands in the post exactly once.
+ *
+ * ponytail: a `share` long enough to truncate and carrying the URL inline can have that URL cut
+ * mid-string. Budget for it in the front matter; guarding it needs URL-aware truncation.
+ */
+export function composePost ({ share, title, description, url }) {
   const room = TWEET_LIMIT - URL_WEIGHT - 2
-  let text = title.length > room ? `${title.slice(0, room - 1).trimEnd()}…` : title
-  if (description && text.length + description.length + 2 <= room) text += `\n\n${description}`
-  return `${text}\n\n${url}`
+  let text = share || title
+  if (!share && description && text.length + description.length + 2 <= room) text += `\n\n${description}`
+  if (text.length > room) text = `${text.slice(0, room - 1).trimEnd()}…`
+  return text.includes(url) ? text : `${text}\n\n${url}`
 }
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' })
@@ -169,6 +203,7 @@ async function main () {
   for (const path of paths.slice(0, MAX_PER_RUN)) {
     const fields = frontmatter(readAt(headSha, path))
     const text = composePost({
+      share: fields.share,
       title: fields.title || basename(path, '.md'),
       description: fields.description,
       url: `${siteUrl}/blog/${basename(path, '.md')}.html`
