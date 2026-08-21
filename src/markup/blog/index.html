@@ -12,7 +12,9 @@ taxonomies:
 {% for group in byYear %}
 
   <h2>{{ group.key }}</h2>
-  {% for post in group.items %}
-    {% include "post-preview.html" %}
-  {% endfor %}
+  <ul>
+    {% for post in group.items %}
+      {% include "post-preview.html" %}
+    {% endfor %}
+  </ul>
 {% endfor %}

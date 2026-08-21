@@ -1,6 +1,6 @@
-<article class="block">
-  <div class="flex" style="gap: 16px; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: nowrap;">
+<li style="margin-bottom: 1em;">
+  <div class="flex" style="gap: 16px; justify-content: space-between; align-items: baseline; flex-wrap: nowrap;">
     <div><a href="{{ relativePathPrefix }}{{ post.url }}">{{ post.title }}</a> <a class="gray" style="line-height: 1rem; vertical-align: middle; padding: 1px 2px;" href="{{ relativePathPrefix }}blog/category/{{ post.category | slugify }}/">/{{ post.category }}</a></div>
-    <time class="gray block" style="white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date('MMM-DD') }}</time>
+    <time class="gray block" style="white-space: nowrap;" datetime="{{ post.date | date('YYYY-MM-DD') }}">{{ post.date | date('MMM-DD-YYYY' if showYear else 'MMM-DD') }}</time>
   </div>
-</article>
+</li>

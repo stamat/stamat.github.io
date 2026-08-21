@@ -21,11 +21,14 @@ I'm Stamat!
 <br />
 <section>
     <h2>Recent Blog Posts</h2>
-    <div style="gap: 16px; flex-wrap: wrap;">
-        {% set posts = blog.items.slice(0, 3) %}
-        {% for post in posts %}
+    <ul>
+        {% set showYear = true %}
+        {% for post in blog.items.slice(0, 3) %}
             {% include "post-preview.html" %}
         {% endfor %}
+    </ul>
+    <div class="padded-text">
+        <a href="{{ relativePathPrefix }}blog" class="btn">All posts</a>
     </div>
 </section>
 <section>
