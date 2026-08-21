@@ -1,0 +1,7 @@
+<li style="margin-bottom: 1em;">
+  <div class="flex" style="gap: 16px; justify-content: space-between; align-items: baseline; flex-wrap: nowrap;">
+    <div>{% if project.url %}<a href="{{ project.url | escape }}">{{ project.title | escape }}</a>{% else %}{{ project.title | escape }}{% endif %}{% if project.stack %} <span class="gray stack">{% for tech in project.stack %}<span>{{ tech | escape }}</span>{% endfor %}</span>{% endif %}</div>
+    <time class="gray" style="white-space: nowrap;" datetime="{{ project.year }}">{{ project.year }}</time>
+  </div>
+  <div>{{ project.description | escape }}</div>
+</li>

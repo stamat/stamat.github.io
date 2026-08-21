@@ -32,7 +32,8 @@
       "data": [
         "_data/social.yaml",
         "_data/nav.yaml",
-        "_data/photos.yml"
+        "_data/photos.yml",
+        "_data/projects.yaml"
       ],
       "includePaths": [
         "_layouts",

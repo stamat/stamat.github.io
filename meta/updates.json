@@ -32,11 +32,15 @@
     "updated": "2026-08-06T23:21:05.516Z"
   },
   "src/markup/index.html": {
-    "hash": "985b5ed6ed1736d424ef8551edc0bd8f46d59478",
-    "updated": "2026-08-06T23:33:53.134Z"
+    "hash": "9b2923b694622c2e44a2145ad785b48956511f49",
+    "updated": "2026-08-21T12:54:09.472Z"
   },
   "src/markup/photos.html": {
     "hash": "6b4d2507e97bbfb99eca0b028829059a28073a72",
     "updated": "2026-08-15T21:18:20.214Z"
+  },
+  "src/markup/projects.html": {
+    "hash": "37e30b62aaa08fe7d7afc8b0999606af0e0f3e00",
+    "updated": "2026-08-21T12:52:54.351Z"
   }
 }

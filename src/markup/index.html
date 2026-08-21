@@ -28,3 +28,14 @@ I'm Stamat!
         {% endfor %}
     </div>
 </section>
+<section>
+    <h2>Featured Projects</h2>
+    <ul>
+        {% for project in projects | selectattr('featured') | sort(reverse=true, attribute='year') %}
+            {% include "project-preview.html" %}
+        {% endfor %}
+    </ul>
+    <div class="padded-text">
+        <a href="{{ relativePathPrefix }}projects.html" class="btn">All projects</a>
+    </div>
+</section>

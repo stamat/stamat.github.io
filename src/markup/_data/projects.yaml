@@ -1,0 +1,130 @@
+# The project list. /projects.html shows all of it, the homepage shows the featured ones.
+#
+# year: the year the project started. Seeded from the GitHub repo creation year, which is a
+#       floor, not a truth — a project that lived somewhere else first started earlier, fix it here
+# title: what it is called
+# url: optional. Without it the title is plain text, with it the title is the link
+# description: one line, what it does. Long enough to say it, short enough not to wrap twice
+# stack: list, rendered as /one /two /three. What it is built on, not every transitive dependency
+# featured: true puts it on the homepage. Everything lands on /projects.html either way
+- year: 2026
+  title: "book-of-elementals"
+  url: "https://github.com/stamat/book-of-elementals"
+  featured: true
+  description: "Accessible custom elements that keep your markup in the light DOM, tested against axe-core."
+  stack: ["JavaScript", "Custom Elements", "Jest", "axe-core"]
+
+- year: 2026
+  title: "septic"
+  url: "https://github.com/stamat/septic"
+  featured: true
+  description: "Config-driven backend: one config file becomes a SQLite schema, REST CRUD and auth."
+  stack: ["Node.js", "Express", "SQLite", "Sharp"]
+
+- year: 2026
+  title: "code-preview-element"
+  url: "https://github.com/stamat/code-preview-element"
+  description: "A code block that renders itself: live, editable HTML samples in an isolated iframe."
+  stack: ["TypeScript", "Custom Elements"]
+
+- year: 2026
+  title: "poops-docs-theme"
+  url: "https://github.com/stamat/poops-docs-theme"
+  description: "The documentation theme every poops project wears — layout, styles and script in one package."
+  stack: ["TypeScript", "Custom Elements"]
+
+- year: 2026
+  title: "laxative"
+  url: "https://github.com/stamat/laxative"
+  description: "One config, whole stack — conducts poops on the front and septic on the back into a single MVP."
+  stack: ["Node.js", "Express"]
+
+- year: 2026
+  title: "poops-shopify"
+  url: "https://github.com/stamat/poops-shopify"
+  description: "Develop Shopify themes locally against mock data, then push the theme directory as it stands."
+  stack: ["Node.js", "Liquid", "Shopify"]
+
+- year: 2026
+  title: "argoyle"
+  url: "https://github.com/stamat/argoyle"
+  description: "CLI argument parser that writes its own help. No dependencies, by design."
+  stack: ["Node.js", "zero dependencies"]
+
+- year: 2026
+  title: "limbic"
+  url: "https://github.com/stamat/limbic"
+  description: "An agent's memory gate — learns what you correct, so you stop correcting it."
+  stack: ["Node.js", "JavaScript"]
+
+- year: 2026
+  title: "printstyle"
+  url: "https://github.com/stamat/printstyle"
+  description: "ANSI terminal styling with a built-in micro template language."
+  stack: ["Node.js", "JavaScript"]
+
+- year: 2026
+  title: "poops-images"
+  url: "https://github.com/stamat/poops-images"
+  description: "CLI that prepares images for the web — resizing, cropping and modern formats in one pass."
+  stack: ["Node.js", "Sharp", "SVGO"]
+
+- year: 2024
+  title: "hydrargyri"
+  featured: true
+  url: "https://github.com/stamat/hydrargyri"
+  description: "Reactive web components in the light DOM — declarative binds and handlers on markup you already wrote."
+  stack: ["JavaScript", "Custom Elements"]
+
+- year: 2024
+  title: "compare-images-slider"
+  url: "https://github.com/stamat/compare-images-slider"
+  description: "A slider for comparing two images against each other."
+  stack: ["JavaScript", "ESM"]
+
+- year: 2023
+  title: "poops"
+  url: "https://github.com/stamat/poops"
+  featured: true
+  description: "Straightforward, no-bullshit bundler for the web. This site is built with it."
+  stack: ["Node.js", "esbuild", "Sass", "Nunjucks"]
+
+- year: 2023
+  title: "book-of-spells"
+  featured: true
+  url: "https://github.com/stamat/book-of-spells"
+  description: "A grimoire of JavaScript helpers — the ones I kept rewriting, written once."
+  stack: ["JavaScript", "ESM"]
+
+- year: 2022
+  title: "media-player"
+  url: "https://github.com/stamat/media-player"
+  description: "A media player you write in HTML — one custom element over the <audio> or <video> you already have."
+  stack: ["JavaScript", "Custom Elements"]
+
+- year: 2021
+  title: "sulphuris"
+  url: "https://github.com/stamat/sulphuris"
+  featured: true
+  description: "An adaptable CSS utility library, with a vocabulary small enough to hold in your head."
+  stack: ["SCSS"]
+
+- year: 2019
+  title: "youtube-background"
+  url: "https://github.com/stamat/youtube-background"
+  featured: true
+  description: "Video backgrounds from YouTube, Vimeo or plain video links. Maintained since 2019, forked 51 times."
+  stack: ["JavaScript", "ESM", "jQuery"]
+
+- year: 2019
+  title: "modally"
+  url: "https://github.com/stamat/modally"
+  description: "Simple nested modals."
+  stack: ["JavaScript", "ESM"]
+
+- year: 2013
+  title: "droplets"
+  url: "https://github.com/stamat/droplets"
+  featured: true
+  description: "Linux desktop widgets and a WebKit GUI frame in Python GTK."
+  stack: ["Python", "GTK", "WebKit"]

@@ -1,0 +1,10 @@
+---
+layout: page
+title: Projects
+description: Things I have built — the ones that reached done and the ones still moving.
+---
+<ul>
+  {% for project in projects | sort(reverse=true, attribute='year') %}
+    {% include "project-preview.html" %}
+  {% endfor %}
+</ul>

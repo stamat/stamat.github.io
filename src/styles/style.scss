@@ -133,6 +133,12 @@ h6:before {
     content: '###### ' / '';
 }
 
+// A section's heading zeroes its own top margin as a first child, so two stacked
+// sections would butt together. The gap between them belongs to the boundary.
+section + section {
+    margin-top: 4em;
+}
+
 blockquote {
     color: gray;
     margin-bottom: var(--block-gap);
@@ -372,6 +378,18 @@ table.meta {
 
 .gray {
     color: gray;
+}
+
+// The slash is ornament borrowed from the blog's category tag. Empty alt text, or
+// a screen reader announces "slash" before every entry in the stack.
+.stack {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0 0.75ch;
+
+    span::before {
+        content: '/' / '';
+    }
 }
 
 .menu ul {
