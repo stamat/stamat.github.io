@@ -3,6 +3,42 @@ layout: page
 title: Photos
 ownTitle: true
 ---
+{# The gallery is built once, up here, because three views read it: the grid and list below and
+   the map at the bottom, whose frame has to be known before the view switch can decide whether
+   to offer a map link at all. #}
+{% set gallery = [] %}
+{% for img in 'static/images' | images %}
+  {% set file = img.path | replace('static/images/', '') %}
+  {% set match = [] %}
+  {% for p in photos %}{% if p.file == file %}{% set _ = match.push(p) %}{% endif %}{% endfor %}
+  {% set meta = match[0] %}
+  {% set date = meta.date or img.date %}
+  {% set _ = gallery.push({
+    file: file,
+    src: img.path,
+    full: (img.outputs | rejectattr('name') | sort(attribute='width') | last).path,
+    pin: (img.outputs | selectattr('name') | sort(attribute='width') | first).path,
+    date: date,
+    when: meta.when,
+    place: meta.place,
+    map: meta.map or img.exif.gps.googleMapsUrl,
+    lat: (meta.coords.split(',')[0] | trim | float) if meta.coords else img.exif.gps.latitude.decimal,
+    lng: (meta.coords.split(',')[1] | trim | float) if meta.coords else img.exif.gps.longitude.decimal,
+    camera: meta.camera or (img.exif.make ~ ' ' ~ img.exif.model ~ (' | ' ~ img.exif.lensModel if img.exif.lensModel else '') if img.exif.model else ''),
+    description: meta.description,
+    alt: meta.alt or meta.description or ('Photograph' ~ (', ' ~ meta.place if meta.place else '') ~ ', ' ~ (date | date("D MMMM YYYY")))
+  }) %}
+{% endfor %}
+{% set photoList = gallery | sort(reverse=true, attribute='date') %}
+
+{# Only the photos that have somewhere to be put get a pin, and the count decides whether the
+   map is offered at all. The frame is fitted to them at runtime, so nothing is computed here. #}
+{% set pinned = [] %}
+{% for photo in photoList %}{% if photo.lat and photo.lng %}{% set _ = pinned.push(photo) %}{% endif %}{% endfor %}
+<!-- OpenLayers' own stylesheet, ahead of the page's so the rules below win at equal specificity.
+     In the body rather than the head because the layout has no head slot, and the map is
+     display:none until targeted, so nothing flashes unstyled. -->
+<link rel="stylesheet" href="{{ relativePathPrefix }}dist/vendor/ol.css">
 <style>
   .page-head {
     display: flex;
@@ -87,10 +123,81 @@ ownTitle: true
 
   body:has(#list:target) .view-switch a[href="#list"],
   body:has(figure:target) .view-switch a[href="#list"],
-  body:not(:has(#list:target)):not(:has(figure:target)) .view-switch a[href="#grid"] {
+  body:has(#map:target) .view-switch a[href="#map"],
+  body:not(:has(#list:target)):not(:has(figure:target)):not(:has(#map:target)) .view-switch a[href="#grid"] {
     background-color: var(--fg-color);
     color: var(--bg-color);
     text-decoration: none;
+  }
+
+  /* Third view, same fragment switch as the other two. Fixed height rather than a
+     ratio: the frame is whatever the view is zoomed to, not something the page
+     knows in advance. */
+  .photo-map {
+    display: none;
+    height: min(70vh, 640px);
+    background-color: var(--bg-color-subtle);
+  }
+  .photo-map:target {
+    display: block;
+  }
+  body:has(#map:target) .photos {
+    display: none;
+  }
+  .photo-map-notice {
+    padding: 1em;
+    color: var(--fg-color-subtle);
+  }
+
+  /* OpenLayers writes the overlay position to this element's own transform, which
+     is why the pin inside keeps a transform of its own to grow by. */
+  .photo-pin-anchor {
+    pointer-events: auto;
+  }
+  .photo-pin {
+    display: block;
+    width: 48px;
+    height: 48px;
+    transition: transform 0.2s ease;
+  }
+  .photo-pin:hover,
+  .photo-pin:focus-visible {
+    /* The site-wide a:hover fills the link with the foreground colour, which here
+       would paint over the photograph the pin exists to show. */
+    background-color: transparent;
+    transform: scale(1.3);
+  }
+  .photo-pin img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--fg-color);
+  }
+
+  /* OpenLayers ships its controls in its own blue; this is the rest of the site. */
+  .photo-map .ol-control {
+    background-color: transparent;
+  }
+  .photo-map .ol-control button {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    border: 1px solid var(--fg-color-subtle);
+    border-radius: 0;
+    font-family: inherit;
+  }
+  .photo-map .ol-control button:hover,
+  .photo-map .ol-control button:focus {
+    background-color: var(--fg-color);
+    color: var(--bg-color);
+  }
+  .photo-map .ol-attribution {
+    background-color: var(--bg-color);
+    color: var(--fg-color-subtle);
+    font-size: 0.7em;
+  }
+  .photo-map .ol-attribution a {
+    color: var(--fg-color-subtle);
   }
 </style>
 <div class="page-head">
@@ -99,30 +206,11 @@ ownTitle: true
     <span>view:</span>
     <a href="#grid">grid</a>
     <a href="#list">list</a>
+    {% if pinned.length %}<a href="#map">map</a>{% endif %}
   </div>
 </div>
 <div class="photos" id="list">
-  {% set gallery = [] %}
-  {% for img in 'static/images' | images %}
-    {% set file = img.path | replace('static/images/', '') %}
-    {% set match = [] %}
-    {% for p in photos %}{% if p.file == file %}{% set _ = match.push(p) %}{% endif %}{% endfor %}
-    {% set meta = match[0] %}
-    {% set date = meta.date or img.date %}
-    {% set _ = gallery.push({
-      file: file,
-      src: img.path,
-      full: (img.outputs | rejectattr('name') | sort(attribute='width') | last).path,
-      date: date,
-      when: meta.when,
-      place: meta.place,
-      map: meta.map or img.exif.gps.googleMapsUrl,
-      camera: meta.camera or (img.exif.make ~ ' ' ~ img.exif.model ~ (' | ' ~ img.exif.lensModel if img.exif.lensModel else '') if img.exif.model else ''),
-      description: meta.description,
-      alt: meta.alt or meta.description or ('Photograph' ~ (', ' ~ meta.place if meta.place else '') ~ ', ' ~ (date | date("D MMMM YYYY")))
-    }) %}
-  {% endfor %}
-  {% for photo in gallery | sort(reverse=true, attribute='date') %}
+  {% for photo in photoList %}
   <figure id="photo-{{ photo.file }}">
     <a class="photo-link" href="#photo-{{ photo.file }}">
       {% image photo.src, alt=photo.alt, sizes='(max-width: 959px) 100vw, 640px' %}
@@ -135,3 +223,37 @@ ownTitle: true
   </figure>
   {% endfor %}
 </div>
+{% if pinned.length %}
+{# The pins are rendered here and moved into map overlays by the script: real anchors with real
+   accessible names, styled by the page, rather than markers drawn by the library. Hidden until
+   then so they do not pile up in a corner while the map is being built. #}
+<div class="photo-pins" hidden>
+  {% for photo in pinned %}
+  <a class="photo-pin" href="#photo-{{ photo.file }}" data-lat="{{ photo.lat }}" data-lng="{{ photo.lng }}">
+    {# The pin is a link with nothing in it but a picture, so the alt is the link's only name.
+       It says where the pin goes, not what the photograph shows — the caption does that. #}
+    <img src="{{ relativePathPrefix }}{{ photo.pin }}" alt="{{ photo.place or 'Somewhere' }} · {{ photo.when or (photo.date | date("D MMMM YYYY")) }}" width="96" height="96" loading="lazy">
+  </a>
+  {% endfor %}
+</div>
+<div class="photo-map" id="map">
+  <p class="photo-map-notice">The map needs JavaScript. <a href="#list">The list view</a> carries every place as a link instead.</p>
+</div>
+<script>
+  // The renderer and its style are 150KB gzipped. A visitor reading the grid never asks for a
+  // map and should not pay for one, so the bundle is fetched on the first request for the map
+  // view and never before. Everything after that — building, fitting, re-showing — is its own.
+  (function () {
+    var requested = false;
+    function load() {
+      if (requested || window.location.hash !== '#map') return;
+      requested = true;
+      var script = document.createElement('script');
+      script.src = '{{ relativePathPrefix }}dist/js/photos-map.min.js';
+      document.body.appendChild(script);
+    }
+    window.addEventListener('hashchange', load);
+    load();
+  })();
+</script>
+{% endif %}

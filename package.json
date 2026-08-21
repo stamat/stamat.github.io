@@ -17,6 +17,8 @@
     "stamat"
   ],
   "dependencies": {
+    "ol": "^10.10.0",
+    "ol-mapbox-style": "^13.4.2",
     "poops": "^2.5.0",
     "poops-images": "^1.2.1"
   },

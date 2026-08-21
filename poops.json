@@ -8,6 +8,15 @@
       "justMinified": false,
       "format": "iife"
     }
+  }, {
+    "in": "src/js/photos-map.js",
+    "out": "_site/dist/js/photos-map.js",
+    "options": {
+      "sourcemap": true,
+      "minify": true,
+      "justMinified": false,
+      "format": "iife"
+    }
   }],
   "styles": [{
     "in": "src/styles/style.scss",
@@ -50,6 +59,10 @@
     {
       "in": "src/static/*",
       "out": "_site"
+    },
+    {
+      "in": "node_modules/ol/ol.css",
+      "out": "_site/dist/vendor"
     }
   ],
   "images": {
@@ -59,6 +72,7 @@
       { "width": 480 },
       { "width": 960 },
       { "width": 1440 },
+      { "name": "thumb", "width": 96, "height": 96, "crop": true },
       { "name": "thumb", "width": 480, "height": 480, "crop": true },
       { "name": "thumb", "width": 960, "height": 960, "crop": true }
     ],

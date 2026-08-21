@@ -6,6 +6,10 @@
 # when: display label, for when the exact day is a lie. 
 # place: the name EXIF has no field for
 # map: overrides the EXIF GPS link. 
+# coords: "lat, lng" — the pin on the map view. Overrides EXIF GPS, and the only way a
+#   scan gets one: a film scanner writes no GPS, and a maps.app.goo.gl link holds no
+#   coordinates a browser can read back out. No coords, no pin — the photo stays in grid
+#   and list only
 # camera: the body that shot it, not the scanner EXIF names
 # alt: falls back to description, then to a bare "Photograph, <place>, <date>" — write one
 - file: "IMG_0407.jpg"
@@ -16,6 +20,7 @@
   date: "2024-02-09"
   place: "Ostfriedhof, München, Germany"
   map: "https://maps.app.goo.gl/FBH3nYgwq5X1GCjZA"
+  coords: "48.11917950280375, 11.585594185288281"
   camera: "Canon AE-1 | Tokina 35-105mm ø55"
   description: ""
   alt: "A winged stone angel carved in relief inside a rounded niche, hooded and looking past the camera, hands closed around an upright staff."
@@ -25,6 +30,7 @@
   when: "Late December 2018"
   place: "Limhamn, Malmö, Sweden"
   map: "https://maps.app.goo.gl/DNcrAuusjATpf5ZU7"
+  coords: "55.578771,12.915734"
   camera: "Canon AE-1 | Tokina 35-105mm ø55"
   description: ""
   alt: "A wind-torn sea under a pale overcast sky, one wave breaking white in the foreground and bare branches blurred across the left edge."
